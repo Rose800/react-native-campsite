@@ -11,8 +11,8 @@ class Contact extends Component{
     }
 
     static navigationOptions = {
-        title: 'Contact'
-    }
+        title: 'Contact Us',
+    };
 
     render(){
         return(
@@ -25,7 +25,7 @@ class Contact extends Component{
                 <Text>Email: campsite@nucamp.com</Text>
             </Card>
         </ScrollView>
-        )
+        );
     }
 }
 
