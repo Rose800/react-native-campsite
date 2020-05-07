@@ -12,19 +12,26 @@ const mapStateToProps = state => {
 };
 
 
-function Mission(){
-    return(
-        <Card wrapperStyle={{margin: 20}} title="Our Mission">
-            <Text>We present a curated database of the best campsites in the vast woods and backcountry of the World Wide Web Wilderness. We increase access to adventure for the public while promoting safe and respectful use of resources. The expert wilderness trekkers on our staff personally verify each campsite to make sure that they are up to our standards. We also present a platform for campers to share reviews on campsites they have visited with each other.</Text>
-        </Card>
-    );
-}
+const Mission = (props) => {
+  return (
+    <Card title='Our Mission'>
+      <Text>{props.mission}</Text>
+    </Card>
+  );
+};
 
 class About extends Component{
-    
+  
     static navigationOptions = {
         title:'About Us'
     };
+    constructor(props) {
+      super(props);
+      this.state = {
+        mission:
+          'We present a curated database of the best campsites in the vast woods and backcountry of the World Wide Web Wilderness. We increase access to adventure for the public while promoting safe and respectful use of resources. The expert wilderness trekkers on our staff personally verify each campsite to make sure that they are up to our standards. We also present a platform for campers to share reviews on campsites they have visited with each other.',
+      };
+    }
     render() {
         const { navigate } = this.props.navigation;
         const renderPartner = ({ item }) => {
@@ -73,7 +80,5 @@ class About extends Component{
           );
         }
       }
-
-
-      export default connect(mapStateToProps)(About);
+    export default connect(mapStateToProps)(About);
 

@@ -2,7 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
 export const fetchComments = () => dispatch => {
-    // dispatch(campsitesLoading());
+     dispatch(campsitesLoading());
     
     return fetch(baseUrl + 'comments')
         .then(response => {
@@ -152,4 +152,30 @@ export const postFavorite = campsiteId => dispatch => {
 export const addFavorite = campsiteId => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: campsiteId
+})
+export const postComment =(campsiteId) => (dispatch) =>{
+setTimeout(() =>{
+    dispatch(addComment(campsiteId));
+},2000)
+// (dispatch)=>{
+//     const newComment = {
+//         campsiteId,
+//         rating,
+//         author,
+//         text
+    };
+//     newComment.date = new Date().toISOString();
+//     setTimeout(()=> {
+//         dispatch(addComment(newComment));
+//     },2000);   
+// };
+export const addComment= campsiteId =>({
+    type: ActionTypes.ADD_COMMENT,
+    payload: campsiteId,
 });
+
+
+
+    
+
+

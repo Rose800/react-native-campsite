@@ -15,14 +15,13 @@ const mapStateToProps = state =>{
 
 function RenderItem(props) {
     const {item} = props;
-
-    if (this.isLoading) {
+    if (props.isLoading) {
         return <Loading />;
     }
-    if (this.errMess) {
+    if (props.errMess) {
         return (
             <View>
-                <Text>{this.props.campsites.errMess}</Text>
+                <Text>{props.errMess}</Text>
            </View>
         );
     }
@@ -56,12 +55,12 @@ class Home extends Component {
                     errMess={this.props.campsites.errMess}
                 />
                 <RenderItem
-                    item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
+                    item={this.props.promotions.promotions.filter( promotion => promotion.featured)[0]}
                     isLoading={this.props.promotions.isLoading}
                     errMess={this.props.promotions.errMess} 
                 />
                 <RenderItem
-                    item={this.props.partners.partners.filter(partner => partner.featured)[0]}
+                    item={this.props.partners.partners.filter( partner  => partner.featured)[0]}
                     isLoading={this.props.partners.isLoading}
                     errMess={this.props.partners.errMess} 
                 />
