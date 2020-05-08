@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, FlatList } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import { Card } from 'react-native-elements';
-import {connect} from 'react-redux';
-import {baseUrl} from '../shared/baseUrl';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
 import Loading from './LoadingComponent';
 
-const mapStateToProps = state =>{
-  return {
-    campsites: state.campsites,
-    promotions: state.promotions,
-    partners: state.partners
-  };
+const mapStateToProps = state => {
+    return {
+        campsites: state.campsites,
+        promotions: state.promotions,
+        partners: state.partners
+    };
 };
 
 function RenderItem(props) {
     const {item} = props;
+
     if (props.isLoading) {
         return <Loading />;
     }
@@ -22,7 +23,7 @@ function RenderItem(props) {
         return (
             <View>
                 <Text>{props.errMess}</Text>
-           </View>
+            </View>
         );
     }
     if (item) {
@@ -42,29 +43,50 @@ function RenderItem(props) {
 
 class Home extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            scaleValue: new Animated.Value(0)
+        };
+    }
+
+    animate() {
+        Animated.timing(
+            this.state.scaleValue,
+            {
+                toValue: 1,
+                duration: 1500
+            }
+        ).start();
+    }
+
+    componentDidMount() {
+        this.animate();
+    }
+
     static navigationOptions = {
         title: 'Home'
     }
 
     render() {
         return (
-            <ScrollView>
-                 <RenderItem
+            <Animated.ScrollView style={{transform: [{scale: this.state.scaleValue}]}}>
+                <RenderItem
                     item={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
                     isLoading={this.props.campsites.isLoading}
                     errMess={this.props.campsites.errMess}
                 />
                 <RenderItem
-                    item={this.props.promotions.promotions.filter( promotion => promotion.featured)[0]}
+                    item={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                     isLoading={this.props.promotions.isLoading}
-                    errMess={this.props.promotions.errMess} 
+                    errMess={this.props.promotions.errMess}
                 />
                 <RenderItem
-                    item={this.props.partners.partners.filter( partner  => partner.featured)[0]}
+                    item={this.props.partners.partners.filter(partner => partner.featured)[0]}
                     isLoading={this.props.partners.isLoading}
-                    errMess={this.props.partners.errMess} 
+                    errMess={this.props.partners.errMess}
                 />
-            </ScrollView>
+            </Animated.ScrollView>
         );
     }
 }
